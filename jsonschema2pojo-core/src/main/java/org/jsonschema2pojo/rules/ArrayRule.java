@@ -67,6 +67,7 @@ public class ArrayRule implements Rule<JPackage, JClass> {
      *            the schema "type" node
      * @param jpackage
      *            the package into which newly generated types should be added
+     * @param schema
      * @return the Java type associated with this array rule, either {@link Set}
      *         or {@link List}, narrowed by the "items" type
      */
@@ -78,7 +79,13 @@ public class ArrayRule implements Rule<JPackage, JClass> {
 
         JType itemType;
         if (node.has("items")) {
-            itemType = ruleFactory.getSchemaRule().apply(makeSingular(nodeName), node.get("items"), jpackage, schema);
+            // Change Parent class name whem #ref like "Thing.json". Classname will be Thing
+            String extendString = makeSingular(nodeName);
+            if (node.get("items").has("$ref") && node.get("items").get("$ref").asText().contains("json")) {
+                extendString = node.get("items").get("$ref").asText();
+                extendString = extendString.substring(0, extendString.length() - 5);
+            }
+            itemType = ruleFactory.getSchemaRule().apply(extendString, node.get("items"), jpackage, schema);
         } else {
             itemType = jpackage.owner().ref(Object.class);
         }

@@ -5,12 +5,12 @@
     <parent>
         <artifactId>jsonschema2pojo</artifactId>
         <groupId>org.jsonschema2pojo</groupId>
-        <version>0.4.6-SNAPSHOT</version>
+        <version>0.4.6-RBS-SNAPSHOT</version>
     </parent>
 
     <artifactId>jsonschema2pojo-core</artifactId>
 
-    <name>jsonschema2pojo-core</name>
+    <name>rbs-jsonschema2pojo-core</name>
 
     <dependencies>
         <dependency>

@@ -5,14 +5,15 @@
     <parent>
         <artifactId>jsonschema2pojo</artifactId>
         <groupId>org.jsonschema2pojo</groupId>
-        <version>0.4.6-SNAPSHOT</version>
+        <version>0.4.6-RBS-SNAPSHOT</version>
     </parent>
 
     <artifactId>jsonschema2pojo-integration-tests</artifactId>
 
-    <name>jsonschema2pojo-integration-tests</name>
+    <name>rbs-jsonschema2pojo-integration-tests</name>
 
     <build>
+        <finalName>rbs-jsonschema2pojo-integration-tests</finalName>
         <testResources>
             <testResource>
                 <directory>${basedir}/src/test/resources</directory>

@@ -205,7 +205,13 @@ public class ObjectRule implements Rule<JPackage, JType> {
     private JType getSuperType(String nodeName, JsonNode node, JClassContainer jClassContainer, Schema schema) {
         JType superType = jClassContainer.owner().ref(Object.class);
         if (node.has("extends")) {
-            superType = ruleFactory.getSchemaRule().apply(nodeName + "Parent", node.get("extends"), jClassContainer, schema);
+            if (node.has("id")) {
+                // Change Parent class name whem #ref like "Thing.json". Classname will be Thing
+                String extendString = node.get("extends").get("$ref").asText();
+                superType = ruleFactory.getSchemaRule().apply(extendString.substring(0, extendString.length()-5), node.get("extends"), jClassContainer, schema);
+            } else {
+                superType = ruleFactory.getSchemaRule().apply(nodeName + "Parent", node.get("extends"), jClassContainer, schema);
+            }
         }
         return superType;
     }

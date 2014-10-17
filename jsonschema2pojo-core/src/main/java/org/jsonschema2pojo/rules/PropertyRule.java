@@ -70,8 +70,15 @@ public class PropertyRule implements Rule<JDefinedClass, JDefinedClass> {
     public JDefinedClass apply(String nodeName, JsonNode node, JDefinedClass jclass, Schema schema) {
 
         String propertyName = getPropertyName(nodeName);
+        
+        // Change Parent class name whem #ref like "Thing.json". Classname will be Thing
+        String extendString = nodeName;
+        if (node.has("$ref") && node.get("$ref").asText().contains("json")) {
+            extendString = node.get("$ref").asText();
+            extendString = extendString.substring(0, extendString.length() - 5);
+        }
 
-        JType propertyType = ruleFactory.getSchemaRule().apply(nodeName, node, jclass, schema);
+        JType propertyType = ruleFactory.getSchemaRule().apply(extendString, node, jclass, schema);
 
         node = resolveRefs(node, schema);
 

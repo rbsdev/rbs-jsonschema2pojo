@@ -5,17 +5,18 @@
     <parent>
         <artifactId>jsonschema2pojo</artifactId>
         <groupId>org.jsonschema2pojo</groupId>
-        <version>0.4.6-SNAPSHOT</version>
+        <version>0.4.6-RBS-SNAPSHOT</version>
     </parent>
 
     <artifactId>jsonschema2pojo-maven-plugin</artifactId>
 
     <packaging>maven-plugin</packaging>
 
-    <name>jsonschema2pojo-maven-plugin</name>
+    <name>rbs-jsonschema2pojo-maven-plugin</name>
     <url>https://github.com/joelittlejohn/jsonschema2pojo</url>
 
     <build>
+        <finalName>rbs-jsonschema2pojo-maven-plugin</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
