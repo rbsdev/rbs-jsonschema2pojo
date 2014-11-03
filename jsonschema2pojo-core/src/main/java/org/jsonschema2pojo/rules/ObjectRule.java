@@ -1,19 +1,18 @@
 /**
  * Copyright © 2010-2014 Nokia
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
-
 package org.jsonschema2pojo.rules;
 
 import static org.jsonschema2pojo.rules.PrimitiveTypes.*;
@@ -121,21 +120,17 @@ public class ObjectRule implements Rule<JPackage, JType> {
     /**
      * Creates a new Java class that will be generated.
      *
-     * @param nodeName
-     *            the node name which may be used to dictate the new class name
-     * @param node
-     *            the node representing the schema that caused the need for a
-     *            new class. This node may include a 'javaType' property which
-     *            if present will override the fully qualified name of the newly
-     *            generated class.
-     * @param _package
-     *            the package which may contain a new class after this method
-     *            call
+     * @param nodeName the node name which may be used to dictate the new class
+     * name
+     * @param node the node representing the schema that caused the need for a
+     * new class. This node may include a 'javaType' property which if present
+     * will override the fully qualified name of the newly generated class.
+     * @param _package the package which may contain a new class after this
+     * method call
      * @return a reference to a newly created class
-     * @throws ClassAlreadyExistsException
-     *             if the given arguments cause an attempt to create a class
-     *             that already exists, either on the classpath or in the
-     *             current map of classes to be generated.
+     * @throws ClassAlreadyExistsException if the given arguments cause an
+     * attempt to create a class that already exists, either on the classpath or
+     * in the current map of classes to be generated.
      */
     private JDefinedClass createClass(String nodeName, JsonNode node, JPackage _package) throws ClassAlreadyExistsException {
 
@@ -180,13 +175,18 @@ public class ObjectRule implements Rule<JPackage, JType> {
 
         ruleFactory.getAnnotator().propertyInclusion(newType, node);
 
+        //adding Serializable extention
+        JCodeModel jCodeModel = new JCodeModel();
+        JClass jClassImplements = jCodeModel.ref(Serializable.class);
+        newType._implements(jClassImplements);
+
         return newType;
 
     }
 
     private JClass addGenericArguments(JPackage _package, JClass existingClass, String[] genericArgumentClassNames) {
         JClass[] genericArgumentClasses = new JClass[genericArgumentClassNames.length];
-        for (int i=0; i<genericArgumentClasses.length; i++) {
+        for (int i = 0; i < genericArgumentClasses.length; i++) {
             genericArgumentClasses[i] = _package.owner().ref(genericArgumentClassNames[i]);
         }
 
@@ -208,7 +208,7 @@ public class ObjectRule implements Rule<JPackage, JType> {
             if (node.has("id")) {
                 // Change Parent class name whem #ref like "Thing.json". Classname will be Thing
                 String extendString = node.get("extends").get("$ref").asText();
-                superType = ruleFactory.getSchemaRule().apply(extendString.substring(0, extendString.length()-5), node.get("extends"), jClassContainer, schema);
+                superType = ruleFactory.getSchemaRule().apply(extendString.substring(0, extendString.length() - 5), node.get("extends"), jClassContainer, schema);
             } else {
                 superType = ruleFactory.getSchemaRule().apply(nodeName + "Parent", node.get("extends"), jClassContainer, schema);
             }
@@ -234,9 +234,9 @@ public class ObjectRule implements Rule<JPackage, JType> {
     private void addToString(JDefinedClass jclass) {
         JMethod toString = jclass.method(JMod.PUBLIC, String.class, "toString");
 
-        Class<?> toStringBuilder = ruleFactory.getGenerationConfig().isUseCommonsLang3() ?
-                org.apache.commons.lang3.builder.ToStringBuilder.class :
-                    org.apache.commons.lang.builder.ToStringBuilder.class;
+        Class<?> toStringBuilder = ruleFactory.getGenerationConfig().isUseCommonsLang3()
+                ? org.apache.commons.lang3.builder.ToStringBuilder.class
+                : org.apache.commons.lang.builder.ToStringBuilder.class;
 
         JBlock body = toString.body();
         JInvocation reflectionToString = jclass.owner().ref(toStringBuilder).staticInvoke("reflectionToString");
@@ -254,9 +254,9 @@ public class ObjectRule implements Rule<JPackage, JType> {
 
         JMethod hashCode = jclass.method(JMod.PUBLIC, int.class, "hashCode");
 
-        Class<?> hashCodeBuilder = ruleFactory.getGenerationConfig().isUseCommonsLang3() ?
-                org.apache.commons.lang3.builder.HashCodeBuilder.class :
-                    org.apache.commons.lang.builder.HashCodeBuilder.class;
+        Class<?> hashCodeBuilder = ruleFactory.getGenerationConfig().isUseCommonsLang3()
+                ? org.apache.commons.lang3.builder.HashCodeBuilder.class
+                : org.apache.commons.lang.builder.HashCodeBuilder.class;
 
         JBlock body = hashCode.body();
         JClass hashCodeBuilderClass = jclass.owner().ref(hashCodeBuilder);
@@ -280,9 +280,9 @@ public class ObjectRule implements Rule<JPackage, JType> {
         JMethod equals = jclass.method(JMod.PUBLIC, boolean.class, "equals");
         JVar otherObject = equals.param(Object.class, "other");
 
-        Class<?> equalsBuilder = ruleFactory.getGenerationConfig().isUseCommonsLang3() ?
-                org.apache.commons.lang3.builder.EqualsBuilder.class :
-                    org.apache.commons.lang.builder.EqualsBuilder.class;
+        Class<?> equalsBuilder = ruleFactory.getGenerationConfig().isUseCommonsLang3()
+                ? org.apache.commons.lang3.builder.EqualsBuilder.class
+                : org.apache.commons.lang.builder.EqualsBuilder.class;
 
         JBlock body = equals.body();
 
