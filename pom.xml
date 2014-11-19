@@ -10,7 +10,11 @@
 
     <groupId>org.jsonschema2pojo</groupId>
     <artifactId>jsonschema2pojo</artifactId>
+<<<<<<< HEAD
     <version>0.4.6-RBS-SNAPSHOT</version>
+=======
+    <version>0.4.6</version>
+>>>>>>> 34bab52fbb51f57c4204dc3a889cd5d3d6222dfc
 
     <packaging>pom</packaging>
     <name>rbs-jsonschema2pojo</name>
