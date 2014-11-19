@@ -10,10 +10,10 @@
 
     <groupId>org.jsonschema2pojo</groupId>
     <artifactId>jsonschema2pojo</artifactId>
-    <version>0.4.6-RBS</version>
+    <version>0.4.6.RBS</version>
 
     <packaging>pom</packaging>
-    <name>rbs-jsonschema2pojo</name>
+    <name>jsonschema2pojo</name>
     <description>Generate DTO style Java classes from JSON Schema documents</description>
     <url>https://github.com/joelittlejohn/jsonschema2pojo</url>
 
@@ -56,7 +56,6 @@
     </properties>
 
     <build>
-        <finalName>rbs-jsonschema2pojo</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
