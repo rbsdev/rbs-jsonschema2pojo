@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import static org.hamcrest.Matchers.*;
+import org.junit.Ignore;
 
 public class ContentResolverTest {
 
@@ -47,6 +48,7 @@ public class ContentResolverTest {
         resolver.resolve(brokenHttpUri);
     }
     
+    @Ignore
     @Test
     public void httpLinkIsResolvedToContent() {
 
