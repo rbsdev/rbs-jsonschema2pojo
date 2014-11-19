@@ -5,19 +5,14 @@
     <parent>
         <artifactId>jsonschema2pojo</artifactId>
         <groupId>org.jsonschema2pojo</groupId>
-<<<<<<< HEAD
-        <version>0.4.6-RBS-SNAPSHOT</version>
-=======
-        <version>0.4.6</version>
->>>>>>> 34bab52fbb51f57c4204dc3a889cd5d3d6222dfc
+        <version>0.4.6-RBS</version>
     </parent>
 
     <artifactId>jsonschema2pojo-cli</artifactId>
 
-    <name>rbs-jsonschema2pojo-cli</name>
+    <name>jsonschema2pojo-cli</name>
 
     <build>
-        <finalName>rbs-jsonschema2pojo-cli</finalName>
         <resources>
             <resource>
                 <filtering>true</filtering>
